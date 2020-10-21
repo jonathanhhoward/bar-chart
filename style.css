@@ -1,0 +1,35 @@
+html {
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: bold;
+  text-anchor: middle;
+}
+
+.bar {
+  fill: #add8e6;
+}
+
+.bar:hover {
+  fill: #69959d;
+}
+
+.tooltip {
+  position: absolute;
+  z-index: 10;
+  display: none;
+  background: #eeeeee;
+  text-align: left;
+  font-size: 0.8rem;
+  border-radius: 4px;
+  padding: 8px;
+}
