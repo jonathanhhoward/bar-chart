@@ -1,13 +1,11 @@
 const datasetURL = 'https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/GDP-data.json';
 
 d3.json(datasetURL)
-  .then(dataset => {
-    const datamap = dataset.data.map(d => ({
-      date: d[0],
-      gdp: d[1],
-    }));
-    barChart(datamap);
-  })
+  .then(dataset => dataset.data.map(d => ({
+    date: d[0],
+    gdp: d[1],
+  })))
+  .then(barChart)
   .catch(console.error);
 
 function barChart(dataset) {
