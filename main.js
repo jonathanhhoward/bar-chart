@@ -52,16 +52,20 @@ function barChart(dataset) {
 
   const xAxis = d3.axisBottom(xScale)
     .tickValues(xTicks)
-    .tickFormat(d3.utcFormat('%Y'));
+    .tickFormat(d3.utcFormat('%Y'))
+    .tickSizeOuter(0);
 
   chart.append('g')
     .attr('id', 'x-axis')
     .attr('transform', `translate(0, ${chartHeight})`)
     .call(xAxis);
 
+  const yAxis = d3.axisLeft(yScale)
+    .tickSizeOuter(0);
+
   chart.append('g')
     .attr('id', 'y-axis')
-    .call(d3.axisLeft(yScale));
+    .call(yAxis);
 
   chart.selectAll('rect')
     .data(dataset)
