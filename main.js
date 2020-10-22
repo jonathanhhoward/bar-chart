@@ -16,7 +16,7 @@ function barChart(dataset) {
   const chartHeight = svgHeight - margin.top - margin.bottom;
 
   const xScale = d3.scaleBand()
-    .domain(dataset.map(d => new Date(d.date)))
+    .domain(dataset.map(d => d.date))
     .padding(0.2)
     .range([0, chartWidth]);
 
@@ -41,16 +41,15 @@ function barChart(dataset) {
     .attr('transform', `translate(${margin.left}, ${margin.top})`);
 
   const xTicks = dataset.filter(d => {
-      const date = new Date(d.date);
-      const year = +d3.utcFormat('%Y')(date);
-      const month = d3.utcFormat('%B')(date);
-      return year % 5 === 0 && month === 'January';
+      const year = +d.date.match(/\d{4}/);
+      const month = d.date.match(/\d{4}-(\d{2})/)[1];
+      return year % 5 === 0 && month === '01';
     })
-    .map(d => new Date(d.date));
+    .map(d => d.date);
 
   const xAxis = d3.axisBottom(xScale)
     .tickValues(xTicks)
-    .tickFormat(d3.utcFormat('%Y'))
+    .tickFormat(d => d.match(/\d{4}/))
     .tickSizeOuter(0);
 
   chart.append('g')
@@ -70,7 +69,7 @@ function barChart(dataset) {
     .enter()
     .append('rect')
     .attr('class', 'bar')
-    .attr('x', d => xScale(new Date(d.date)))
+    .attr('x', d => xScale(d.date))
     .attr('y', d => yScale(d.gdp))
     .attr('width', xScale.bandwidth())
     .attr('height', d => yScale(0) - yScale(d.gdp))
