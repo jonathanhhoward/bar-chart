@@ -80,23 +80,24 @@ function barChart(dataset) {
     .attr('class', 'tooltip');
 
   function showTooltip(event, data) {
-    const dx = 20;
-    const dy = 20;
     const w = 100;
     const h = 50;
-    const { pageX, pageY } = event;
+    const offset = 20;
+    const x = event.pageX + offset;
+    const y = event.pageY + offset;
     const { innerWidth, innerHeight } = window;
-    const isOverflowX = pageX + dx + w > innerWidth;
-    const isOverflowY = pageY + dy + h > innerHeight;
-    const date = d3.utcFormat('%Y Q%q')(new Date(data.date));
-    const gdp = d3.format('$,.1f')(data.gdp);
+    const isOverflowX = x + w > innerWidth;
+    const isOverflowY = y + h > innerHeight;
 
     tooltip.attr('data-date', data.date)
-      .html(`${date}<br>${gdp}`)
-      .style('left', isOverflowX ? '' : `${pageX + dx}px`)
-      .style('top', isOverflowY ? '' : `${pageY + dy}px`)
-      .style('right', isOverflowX ? `${innerWidth - pageX + dx}px` : '')
-      .style('bottom', isOverflowY ? `${innerHeight - pageY + dy}px` : '')
+      .html(
+        `${(d3.utcFormat('%Y Q%q')(new Date(data.date)))}<br>` +
+        `${(d3.format('$,.1f')(data.gdp))}`,
+      )
+      .style('left', isOverflowX ? '' : `${x}px`)
+      .style('top', isOverflowY ? '' : `${y}px`)
+      .style('right', isOverflowX ? `${innerWidth - x}px` : '')
+      .style('bottom', isOverflowY ? `${innerHeight - y}px` : '')
       .style('display', 'block');
   }
 
