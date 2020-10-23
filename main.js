@@ -40,15 +40,12 @@ function barChart(dataset) {
   const chart = svg.append('g')
     .attr('transform', `translate(${margin.left}, ${margin.top})`);
 
-  const xTicks = dataset.filter(d => {
-      const year = +d.date.match(/\d{4}/);
-      const month = d.date.match(/\d{4}-(\d{2})/)[1];
-      return year % 5 === 0 && month === '01';
-    })
-    .map(d => d.date);
-
   const xAxis = d3.axisBottom(xScale)
-    .tickValues(xTicks)
+    .tickValues(xScale.domain().filter(d => {
+      const year = +d.match(/\d{4}/);
+      const month = d.match(/\d{4}-(\d{2})/)[1];
+      return year % 5 === 0 && month === '01';
+    }))
     .tickFormat(d => d.match(/\d{4}/))
     .tickSizeOuter(0);
 
