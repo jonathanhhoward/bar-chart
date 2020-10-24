@@ -12,17 +12,6 @@ function barChart(dataset) {
   const svgWidth = window.innerWidth;
   const svgHeight = window.innerHeight * 0.99;
   const margin = { top: 50, right: 50, bottom: 50, left: 100 };
-  const chartWidth = svgWidth - margin.left - margin.right;
-  const chartHeight = svgHeight - margin.top - margin.bottom;
-
-  const xScale = d3.scaleBand()
-    .domain(dataset.map(d => d.date))
-    .padding(0.2)
-    .range([0, chartWidth]);
-
-  const yScale = d3.scaleLinear()
-    .domain([0, d3.max(dataset, d => d.gdp)])
-    .range([chartHeight, 0]);
 
   const root = d3.select('#root');
 
@@ -40,6 +29,14 @@ function barChart(dataset) {
   const chart = svg.append('g')
     .attr('transform', `translate(${margin.left}, ${margin.top})`);
 
+  const chartWidth = svgWidth - margin.left - margin.right;
+  const chartHeight = svgHeight - margin.top - margin.bottom;
+
+  const xScale = d3.scaleBand()
+    .domain(dataset.map(d => d.date))
+    .padding(0.2)
+    .range([0, chartWidth]);
+
   const xAxis = d3.axisBottom(xScale)
     .tickValues(xScale.domain().filter(d => {
       const year = +d.match(/\d{4}/);
@@ -53,6 +50,10 @@ function barChart(dataset) {
     .attr('id', 'x-axis')
     .attr('transform', `translate(0, ${chartHeight})`)
     .call(xAxis);
+
+  const yScale = d3.scaleLinear()
+    .domain([0, d3.max(dataset, d => d.gdp)])
+    .range([chartHeight, 0]);
 
   const yAxis = d3.axisLeft(yScale)
     .tickSizeOuter(0);
