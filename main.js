@@ -21,7 +21,6 @@ function barChart(dataset) {
 
   svg.append('text')
     .attr('id', 'title')
-    .attr('class', 'title')
     .attr('x', svgWidth * 0.5)
     .attr('y', margin.top * 0.75)
     .text('United States GDP');
@@ -77,8 +76,7 @@ function barChart(dataset) {
     .on('mouseout', hideTooltip);
 
   const tooltip = root.append('div')
-    .attr('id', 'tooltip')
-    .attr('class', 'tooltip');
+    .attr('id', 'tooltip');
 
   function showTooltip(event, data) {
     const w = 100;

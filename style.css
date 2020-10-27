@@ -9,7 +9,7 @@ html {
   box-sizing: inherit;
 }
 
-.title {
+#title {
   font-size: 2rem;
   font-weight: bold;
   text-anchor: middle;
@@ -23,7 +23,7 @@ html {
   fill: #69959d;
 }
 
-.tooltip {
+#tooltip {
   position: absolute;
   z-index: 10;
   display: none;
