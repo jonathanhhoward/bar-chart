@@ -63,8 +63,7 @@ function barChart(dataset) {
 
   chart.selectAll('rect')
     .data(dataset)
-    .enter()
-    .append('rect')
+    .join('rect')
     .attr('class', 'bar')
     .attr('x', d => xScale(d.date))
     .attr('y', d => yScale(d.gdp))
